@@ -1,0 +1,187 @@
+---
+:p4_date:
+  :max_length: -1
+:p4_first_name:
+  :max_length: -1
+:p4_last_name:
+  :max_length: -1
+:p4_middle_name:
+  :max_length: -1
+:p4_name_suffix:
+  :max_length: -1
+:p4_request_free_copy:
+  :max_length: -1
+:p4_unit_no:
+  :max_length: -1
+:p5_adult_ethnicity:
+  :values:
+  - blk_afr_amer
+  - wht_cauca
+  - nat_amer
+  - hisp_lat
+  - alask_nat
+  - pacif_isle
+  - asian
+  - other
+:p5_adult_gender:
+  :values:
+  - male
+  - female
+:p5_bg_00_council:
+  :max_length: -1
+:p5_bg_00_position:
+  :max_length: -1
+:p5_bg_00_year:
+  :max_length: -1
+:p5_bg_01_council:
+  :max_length: -1
+:p5_bg_01_position:
+  :max_length: -1
+:p5_bg_01_year:
+  :max_length: -1
+:p5_boys_life_subscription: {}
+:p5_business_address:
+  :max_length: 19
+:p5_business_city:
+  :max_length: 13
+:p5_business_country:
+  :max_length: 12
+:p5_business_state:
+  :max_length: 2
+:p5_business_zip_code:
+  :max_length: 5
+:p5_city:
+  :max_length: 13
+:p5_country:
+  :max_length: 2
+:p5_dl_state:
+  :max_length: 2
+:p5_dob_day:
+  :max_length: 2
+:p5_dob_month:
+  :max_length: 2
+:p5_dob_year:
+  :max_length: 4
+:p5_drivers_license_number:
+  :max_length: 15
+:p5_email_domain:
+  :max_length: 14
+:p5_email_type: {}
+:p5_email_username:
+  :max_length: 16
+:p5_employer:
+  :max_length: 13
+:p5_expiration_date_day:
+  :max_length: 2
+:p5_expiration_date_month:
+  :max_length: 2
+:p5_expiration_date_year:
+  :max_length: 4
+:p5_first_name:
+  :max_length: 14
+:p5_info_alcohol: {}
+:p5_info_alcohol_desc:
+  :max_length: -1
+:p5_info_child_abuse: {}
+:p5_info_child_abuse_desc:
+  :max_length: -1
+:p5_info_conduct_or_behavior: {}
+:p5_info_conduct_or_behavior_desc:
+  :max_length: -1
+:p5_info_criminal_offense: {}
+:p5_info_criminal_offense_desc:
+  :max_length: -1
+:p5_info_drivers_license: {}
+:p5_info_drivers_license_desc:
+  :max_length: -1
+:p5_info_suitability: {}
+:p5_info_suitability_desc:
+  :max_length: -1
+:p5_last_name:
+  :max_length: 14
+:p5_leader_status:
+  :values:
+  - new
+  - former
+  - venturer
+:p5_mailing_address:
+  :max_length: 19
+:p5_memberships:
+  :max_length: -1
+:p5_middle_name:
+  :max_length: 12
+:p5_name_suffix:
+  :max_length: 12
+:p5_occupation:
+  :max_length: 12
+:p5_phone_business_area_code:
+  :max_length: 12
+:p5_phone_business_extension:
+  :max_length: 12
+:p5_phone_business_prefix:
+  :max_length: 12
+:p5_phone_business_suffix:
+  :max_length: 12
+:p5_phone_cell_area_code:
+  :max_length: 12
+:p5_phone_cell_prefix:
+  :max_length: 12
+:p5_phone_cell_suffix:
+  :max_length: 12
+:p5_phone_home_area_code:
+  :max_length: 12
+:p5_phone_home_prefix:
+  :max_length: 12
+:p5_phone_home_suffix:
+  :max_length: 12
+:p5_position_code:
+  :max_length: 12
+:p5_position_description:
+  :max_length: 12
+:p5_reference_00_name:
+  :max_length: 12
+:p5_reference_00_phone_area_code:
+  :max_length: 12
+:p5_reference_00_phone_main:
+  :max_length: 12
+:p5_reference_01_name:
+  :max_length: 12
+:p5_reference_01_phone_area_code:
+  :max_length: 12
+:p5_reference_01_phone_main:
+  :max_length: 12
+:p5_reference_02_name:
+  :max_length: 12
+:p5_reference_02_phone_area_code:
+  :max_length: 12
+:p5_reference_02_phone_main:
+  :max_length: 12
+:p5_registration_fee_cents:
+  :max_length: 12
+:p5_registration_fee_dollars:
+  :max_length: 12
+:p5_residence_01_city:
+  :max_length: 12
+:p5_residence_01_state:
+  :max_length: 12
+:p5_residence_02_city:
+  :max_length: 12
+:p5_residence_02_state:
+  :max_length: 12
+:p5_state:
+  :max_length: 2
+:p5_term_in_months:
+  :max_length: 12
+:p5_unit_number:
+  :max_length: 12
+:p5_unit_type:
+  :values:
+  - pack
+  - troop
+  - team
+  - crew
+  - ship
+:p5_youth_experience:
+  :max_length: 12
+:p5_zip_code:
+  :max_length:5 

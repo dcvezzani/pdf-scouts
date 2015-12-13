@@ -1,0 +1,73 @@
+{:p3_registration_date=>"2015-12-12", :p3_scout_full_name=>"", :p5_arrow_of_light=>{:p5_arrow_of_light=>"Yes"}, :p3_unit_number=>"0092", :p5_adult_ethnicity=>"wht_cauca", :p5_scout_ethnicity=>"wht_cauca", :p5_parent_gender=>"male", :p5_scout_gender=>"male", :p5_scout_grade=>"11", :p5_scout_school=>"ATWATER HIGH SCHOOL", :p5_unit_number=>"0092", :p5_boys_life_fee_cents=>"12", :p5_boys_life_fee_dollar=>"00", :p5_boys_life_subscription=>"Yes", :p5_scout_birth_date_day=>"13", :p5_scout_birth_date_month=>"11", :p5_scout_birth_date_year=>"1998", :p5_parent_birth_date_day=>"19", :p5_parent_birth_date_month=>"09", :p5_parent_birth_date_year=>"1972", :p5_scout_phone_home_area_code=>"209", :p5_scout_phone_home_middle_three=>"676", :p5_scout_phone_home_last_four=>"4097", :p5_parent_phone_home_area_code=>"209", :p5_parent_phone_home_middle_three=>"676", :p5_parent_phone_home_last_four=>"4097", :p5_parent_phone_business_area_code=>"209", :p5_parent_phone_business_middle_three=>"756", :p5_parent_phone_business_last_four=>"9688", :p5_parent_phone_business_extension=>"", :p5_parent_phone_cell_area_code=>"209", :p5_parent_phone_cell_middle_three=>"756", :p5_parent_phone_cell_last_four=>"9688", :p5_unit_type=>:troop, :p5_scout_mailing_address=>"5922 N KROTIK CT", :p5_scout_city=>"ATWATER", :p5_scout_state=>"CA", :p5_scout_zip_code=>"95301", :p5_scout_country=>"US", :p5_parent_email_user=>"DCVEZZANI", :p5_parent_email_domain=>"GMAILCOM", :p5_parent_first_name=>"DAVID", :p5_parent_middle_name=>"CURTIS", :p5_parent_last_name=>"VEZZANI", :p5_parent_suffix=>"", :p5_scout_first_name=>"JORDAN", :p5_scout_middle_name=>"PIERPONT", :p5_scout_last_name=>"VEZZANI", :p5_scout_suffix=>"", :p5_registration_fee_cents=>"00", :p5_registration_fee_dollars=>"12", :p5_scout_status=>:scout, :p5_unit_leader_signed_date_day=>"12", :p5_unit_leader_signed_date_month=>"12", :p5_unit_leader_signed_date_year=>"2015", :p5_parent_occupation=>"S/W ENGINEER", :p5_parent_employer=>"CRYSTALCOMMERCE", :p5_parent_relationship=>"parent", :p5_parent_relationship_other_description=>"", :p5_parent_previous_scouting_experience=>"TROOP RECHARTERING REP", :p5_transfer_application=>"", :p5_transfer_council_number=>"", :p5_transfer_membership_number=>"", :p5_transfer_unit_number=>"", :p5_transfer_unit_type=>"", :p5_parent_same_address=>"Yes", :p5_parent_mailing_address=>"5922 N KROTIK CT", :p5_parent_city=>"ATWATER", :p5_parent_state=>"CA", :p5_parent_zip_code=>"95301", :p5_parent_country=>"US"}
+
+p3_registration_date: 2015-12-12
+p3_scout_full_name: 
+p3_unit_number: 0092
+p5_adult_ethnicity: wht_cauca
+p5_arrow_of_light: {:p5_arrow_of_light=>"Yes"}
+p5_boys_life_fee_cents: 12
+p5_boys_life_fee_dollar: 00
+p5_boys_life_subscription: Yes
+p5_parent_birth_date_day: 19
+p5_parent_birth_date_month: 09
+p5_parent_birth_date_year: 1972
+p5_parent_city: ATWATER
+p5_parent_country: US
+p5_parent_email_domain: GMAILCOM
+p5_parent_email_user: DCVEZZANI
+p5_parent_employer: CRYSTALCOMMERCE
+p5_parent_first_name: DAVID
+p5_parent_gender: male
+p5_parent_last_name: VEZZANI
+p5_parent_mailing_address: 5922 N KROTIK CT
+p5_parent_middle_name: CURTIS
+p5_parent_occupation: S/W ENGINEER
+p5_parent_phone_business_area_code: 209
+p5_parent_phone_business_extension: 
+p5_parent_phone_business_last_four: 9688
+p5_parent_phone_business_middle_three: 756
+p5_parent_phone_cell_area_code: 209
+p5_parent_phone_cell_last_four: 9688
+p5_parent_phone_cell_middle_three: 756
+p5_parent_phone_home_area_code: 209
+p5_parent_phone_home_last_four: 4097
+p5_parent_phone_home_middle_three: 676
+p5_parent_previous_scouting_experience: TROOP RECHARTERING REP
+p5_parent_relationship: parent
+p5_parent_relationship_other_description: 
+p5_parent_same_address: Yes
+p5_parent_state: CA
+p5_parent_suffix: 
+p5_parent_zip_code: 95301
+p5_registration_fee_cents: 00
+p5_registration_fee_dollars: 12
+p5_scout_birth_date_day: 13
+p5_scout_birth_date_month: 11
+p5_scout_birth_date_year: 1998
+p5_scout_city: ATWATER
+p5_scout_country: US
+p5_scout_ethnicity: wht_cauca
+p5_scout_first_name: JORDAN
+p5_scout_gender: male
+p5_scout_grade: 11
+p5_scout_last_name: VEZZANI
+p5_scout_mailing_address: 5922 N KROTIK CT
+p5_scout_middle_name: PIERPONT
+p5_scout_phone_home_area_code: 209
+p5_scout_phone_home_last_four: 4097
+p5_scout_phone_home_middle_three: 676
+p5_scout_school: ATWATER HIGH SCHOOL
+p5_scout_state: CA
+p5_scout_status: scout
+p5_scout_suffix: 
+p5_scout_zip_code: 95301
+p5_transfer_application: 
+p5_transfer_council_number: 
+p5_transfer_membership_number: 
+p5_transfer_unit_number: 
+p5_transfer_unit_type: 
+p5_unit_leader_signed_date_day: 12
+p5_unit_leader_signed_date_month: 12
+p5_unit_leader_signed_date_year: 2015
+p5_unit_number: 0092
+p5_unit_type: troop
