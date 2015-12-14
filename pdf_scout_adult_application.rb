@@ -20,12 +20,45 @@ File.open("chk-adult.txt", "w"){|f| f.write attrs.inspect
 adult.print(attrs)
 =end
 
+=begin
+irb
+
+home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
+
+require 'yaml'
+data = YAML.load_file("#{home}/data.yml")
+upc = YAML.load_file("#{home}/unit_position_codes.yml")
+
+load "#{home}/pdf_scout_application.rb"
+load "#{home}/pdf_scout_adult_application.rb"
+family_data = (data[:families]["Vezzani"]).merge(data.select{|k,v| [:unit_number, :council, :unit_types, :boys_life_subscription].include?(k)})
+adult = PdfScoutAdultApplication.new(family_data, :troop, upc)
+
+attrs = adult.prepare(:troop)
+File.open("#{home}/chk-adult.txt", "w"){|f| f.write attrs.inspect
+  f.write "\n\n"
+  f.write attrs.keys.map(&:to_s).sort.map{|k| "#{k}: #{attrs[k.to_sym]}"}.join("\n")
+}
+# File.open("#{home}/adult-fields.txt", "w"){|f| f.write adult.fields(:adult).sort.join("\n") }
+
+adult.print(:adult, attrs, "#{home}/adult.#{attrs[:file_label]}.unc.filled.pdf")
+
+`open #{home}/adult.#{attrs[:file_label]}.unc.filled.pdf`
+=end
+
+
 class PdfScoutAdultApplication < PdfScoutApplication
 
-  def initialize(data, unit_position_codes)
+  def initialize(data, unit_type, unit_position_codes)
     super(data, unit_position_codes)
   end
 
+  def file_label(unit_type)
+    # return file_label unless file_label.nil?
+    name_values = parse_name(data[:adult][:full_name])
+    {file_label: "#{name_values[:last]} #{name_values[:first]} #{name_values[:middle]} #{name_values[:suffix]} #{unit_type}".strip.downcase.gsub(/\W+/, '-')}
+  end
+  
   def expiration_date(todays_date)
     date = parse_date(todays_date)
     {
@@ -60,12 +93,14 @@ class PdfScoutAdultApplication < PdfScoutApplication
   
   def full_name(page)
     name_values = parse_name(data[:adult][:full_name])
-    {
+    attrs = {
       "#{page}_first_name".to_sym => clean(name_values[:first]), 
       "#{page}_middle_name".to_sym => clean(name_values[:middle]), 
       "#{page}_last_name".to_sym => clean(name_values[:last]), 
       "#{page}_name_suffix".to_sym => clean(name_values[:suffix])
     }
+
+    attrs
   end
   
   def drivers_license
@@ -269,14 +304,6 @@ class PdfScoutAdultApplication < PdfScoutApplication
     }
   end
   
-  def print(attrs)
-    pdf_template = "#{HOME}/#{ADULT}"
-    re = /\.(?=pdf$)/
-    filename, extension = pdf_template.split(re)
-    
-    @pdftk.fill_form pdf_template, "#{filename}.filled.#{extension}", attrs
-  end
-  
   def prepare(unit_type)
     todays_date = Time.now
     unit_no = '0092'
@@ -300,7 +327,7 @@ class PdfScoutAdultApplication < PdfScoutApplication
     # p5_info_alcohol: Yes | 2
     # p5_eagle_scout_status: 'No', 
 
-    {
+    attrs = {
       p5_info_alcohol: 2,
       p5_info_child_abuse: 2,
       p5_info_conduct_or_behavior: 2,
@@ -369,6 +396,12 @@ class PdfScoutAdultApplication < PdfScoutApplication
 #   # p5_transfer_unit_type
 #     }).merge({
     })
+
+# require 'byebug'
+# debugger
+# x=2-1
+    attrs = attrs.merge(file_label(unit_type))
+    attrs
   end
   
 end

@@ -3,75 +3,77 @@
 :council: Rio del Oro
 :unit_types:
 - troop
-:address: 5922 N. Krotik Ct., Atwater, CA 95301
-:phone: 209-676-4097
 :boys_life_subscription: true
-:scouts:
-- :full_name: Jordan Pierpont Vezzani
-  :arrow_of_light: true
-  :dob: '1998-11-13'
-  :grade: 11
-  :ethnicity: wht_cauca
-  :school: Atwater High School
-  :gender: male
-  :unit_types:
-  - crew
-  :previous_status: venturer
-- :full_name: Matthew Curtis Vezzani
-  :arrow_of_light: false
-  :dob: '2003-11-21'
-  :grade: 6
-  :ethnicity: wht_cauca
-  :school: Hickman
-  :gender: male
-  :unit_types:
-  - crew
-  :previous_status: webelos
-:adult:
-  :full_name: David Curtis Vezzani
-  :relationship: parent
-  :email: dcvezzani@gmail.com
-  :phone_cell: 209-756-9688
-  :dob: '1972-09-19'
-  :ethnicity: wht_cauca
-  :gender: male
-  :previous_scouting_experience: troop rechartering rep
-  :eagle_scout: 
-  :boys_life_subscription: false
-  :drivers_license:
-    :id: ''
-    :state: CA
-  :employment:
-    :occupation: s/w engineer
-    :employer: crystalcommerce
-    :phone: 209-756-9688
-    :address: 220th St SW, Mountlake Terrace, WA 98043
-  :position:
-    :code: CR
-  :background:
-    :positions:
-    - :name: rechartering rep
-      :council: Rio del Oro
-      :year: 2014
-    - :name: troop committee chair
-      :council: Rio del Oro
-      :year: 2013
-    :youth_experience: church youth leader, instructor, scouts
-    :previous_residences:
-    - 5922 N. Krotik Ct., Atwater, CA 95301
-    - 364 Sawgrass Drive, Charles Town, WV 25414
-    :current_memberships: Church of Jesus Christ of Latter Day Saints
-    :references:
-    - :name: David Tyrrell
-      :phone: "(304) 261-4319"
-    - :name: David Orr
-      :phone: "(304) 707-4042"
-    - :name: Stephen Vorhauer
-      :phone: "(304) 725-4419"
-    :additional_information:
-      :removed_for_personal_conduct: 
-      :alcohol_abuse: 
-      :arrested: 
-      :drivers_license_suspend: 
-      :child_abuse: 
-      :unsuitable_to_work_with_youth: 
+:families:
+  "Vezzani":
+    :address: 5922 N. Krotik Ct., Atwater, CA 95301
+    :phone: 209-676-4097
+    :scouts:
+    - :full_name: Jordan Pierpont Vezzani
+      :arrow_of_light: true
+      :dob: '1998-11-13'
+      :grade: 11
+      :ethnicity: wht_cauca
+      :school: Atwater High School
+      :gender: male
+      :unit_types:
+      - crew
+      :previous_status: venturer
+    - :full_name: Matthew Curtis Vezzani
+      :arrow_of_light: false
+      :dob: '2003-11-21'
+      :grade: 6
+      :ethnicity: wht_cauca
+      :school: Hickman
+      :gender: male
+      :unit_types:
+      - crew
+      :previous_status: webelos
+    :adult:
+      :full_name: David Curtis Vezzani
+      :relationship: parent
+      :email: dcvezzani@gmail.com
+      :phone_cell: 209-756-9688
+      :dob: '1972-09-19'
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: troop rechartering rep
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :drivers_license:
+        :id: ''
+        :state: CA
+      :employment:
+        :occupation: s/w engineer
+        :employer: crystalcommerce
+        :phone: 209-756-9688
+        :address: 220th St SW, Mountlake Terrace, WA 98043
+      :position:
+        :code: CR
+      :background:
+        :positions:
+        - :name: rechartering rep
+          :council: Rio del Oro
+          :year: 2014
+        - :name: troop committee chair
+          :council: Rio del Oro
+          :year: 2013
+        :youth_experience: church youth leader, instructor, scouts
+        :previous_residences:
+        - 5922 N. Krotik Ct., Atwater, CA 95301
+        - 364 Sawgrass Drive, Charles Town, WV 25414
+        :current_memberships: Church of Jesus Christ of Latter Day Saints
+        :references:
+        - :name: David Tyrrell
+          :phone: "(304) 261-4319"
+        - :name: David Orr
+          :phone: "(304) 707-4042"
+        - :name: Stephen Vorhauer
+          :phone: "(304) 725-4419"
+        :additional_information:
+          :removed_for_personal_conduct: 
+          :alcohol_abuse: 
+          :arrested: 
+          :drivers_license_suspend: 
+          :child_abuse: 
+          :unsuitable_to_work_with_youth: 

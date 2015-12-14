@@ -2,21 +2,29 @@ require 'bundler/setup'
 require_relative 'pdf_scout_application'
 
 =begin
-require 'yaml'
-data = YAML.load_file('/Users/davidvezzani/Dropbox/20151101-pdf-parsing/data.yml')
-upc = YAML.load_file('/Users/davidvezzani/Dropbox/20151101-pdf-parsing/unit_position_codes.yml')
+irb
 
-load '/Users/davidvezzani/Dropbox/20151101-pdf-parsing/pdf_scout_youth_application.rb'
-youth = PdfScoutYouthApplication.new(data, 0, :troop, upc)
+home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
+
+require 'yaml'
+data = YAML.load_file("#{home}/data.yml")
+upc = YAML.load_file("#{home}/unit_position_codes.yml")
+
+load "#{home}/pdf_scout_application.rb"
+load "#{home}/pdf_scout_youth_application.rb"
+family_data = (data[:families]["Vezzani"]).merge(data.select{|k,v| [:unit_number, :council, :unit_types, :boys_life_subscription].include?(k)})
+youth = PdfScoutYouthApplication.new(family_data, 1, :troop, upc)
 
 attrs = youth.prepare(:troop)
-File.open("chk-youth.txt", "w"){|f| f.write attrs.inspect
+File.open("#{home}/chk-youth.txt", "w"){|f| f.write attrs.inspect
   f.write "\n\n"
   f.write attrs.keys.map(&:to_s).sort.map{|k| "#{k}: #{attrs[k.to_sym]}"}.join("\n")
 }
-# File.open("youth-fields.txt", "w"){|f| f.write youth.fields(:youth).sort.join("\n") }
+# File.open("#{home}/youth-fields.txt", "w"){|f| f.write youth.fields(:youth).sort.join("\n") }
 
-youth.print(attrs)
+youth.print(:youth, attrs, "#{home}/youth.#{attrs[:file_label]}.unc.filled.pdf")
+
+`open #{home}/youth.#{attrs[:file_label]}.unc.filled.pdf`
 =end
 
 class PdfScoutYouthApplication < PdfScoutApplication
@@ -27,14 +35,21 @@ class PdfScoutYouthApplication < PdfScoutApplication
     data[:youth][:unit_type] = unit_type
   end
 
-  def full_name(page)
-    name_values = parse_name(data[:adult][:full_name])
-    {
-      "#{page}_first_name".to_sym => clean(name_values[:first]), 
-      "#{page}_middle_name".to_sym => clean(name_values[:middle]), 
-      "#{page}_last_name".to_sym => clean(name_values[:last]), 
-      "#{page}_name_suffix".to_sym => clean(name_values[:suffix])
-    }
+  # def full_name(page)
+  #   name_values = parse_name(data[:adult][:full_name])
+  #   {
+  #     "#{page}_first_name".to_sym => clean(name_values[:first]), 
+  #     "#{page}_middle_name".to_sym => clean(name_values[:middle]), 
+  #     "#{page}_last_name".to_sym => clean(name_values[:last]), 
+  #     "#{page}_name_suffix".to_sym => clean(name_values[:suffix])
+  #   }
+  # end
+
+  def file_label(unit_type)
+    # return file_label unless file_label.nil?
+    name_values = parse_name(data[:youth][:full_name])
+    {file_label: "#{name_values[:last]} #{name_values[:first]} #{name_values[:middle]} #{name_values[:suffix]} #{unit_type}".strip.downcase.gsub(/\W+/, '-')}
+    
   end
 
   def boys_life
@@ -48,8 +63,8 @@ class PdfScoutYouthApplication < PdfScoutApplication
 
     if(boys_life_subscription_value)
       {
-        p5_boys_life_fee_cents: '12', 
-        p5_boys_life_fee_dollar: '00',
+        p5_boys_life_fee_dollar: '12',
+        p5_boys_life_fee_cents: '00', 
         p5_boys_life_subscription: 'Yes'
       }
     else
@@ -61,6 +76,7 @@ class PdfScoutYouthApplication < PdfScoutApplication
 
   def arrow_of_light
     arrow_of_light_value = (data[:youth][:arrow_of_light]) ? 'Yes' : false
+    puts ">>> #{arrow_of_light_value}"
     {
       p5_arrow_of_light: arrow_of_light_value
     }
@@ -141,9 +157,6 @@ class PdfScoutYouthApplication < PdfScoutApplication
                     [:employment, :phone]
                   end
 
-    # require 'byebug'
-    # debugger
-    # z=2-1
     phone_number = if(phone_label.is_a?(Array))
       parse_phone(data[person_label][phone_label[0]][phone_label[1]])
     elsif(data[person_label].has_key?(phone_label))
@@ -213,12 +226,18 @@ class PdfScoutYouthApplication < PdfScoutApplication
                     parse_name(data[:youth][:full_name])
                   end
 
-    {
+    attrs = {
       "p5_#{person}_first_name".to_sym => clean(name_values[:first]), 
       "p5_#{person}_middle_name".to_sym => clean(name_values[:middle]), 
       "p5_#{person}_last_name".to_sym => clean(name_values[:last]), 
       "p5_#{person}_suffix".to_sym => clean(name_values[:suffix])
     }
+
+    attrs.merge!({
+      "p3_#{person}_full_name".to_sym => "#{name_values[:first]} #{name_values[:middle]} #{name_values[:last]} #{name_values[:suffix]}".strip, 
+    })
+    
+    attrs
   end
   
   def employment
@@ -243,6 +262,12 @@ class PdfScoutYouthApplication < PdfScoutApplication
                    end
     {
       p5_scout_status: scout_status
+    }
+  end
+  
+  def grade
+    {
+      p5_scout_grade: clean(data[:youth][:grade].to_s.rjust(2, '0'))
     }
   end
   
@@ -272,14 +297,6 @@ class PdfScoutYouthApplication < PdfScoutApplication
     end
   end
   
-  def print(attrs)
-    pdf_template = "#{HOME}/#{YOUTH}"
-    re = /\.(?=pdf$)/
-    filename, extension = pdf_template.split(re)
-    
-    @pdftk.fill_form pdf_template, "#{filename}.filled.#{extension}", attrs
-  end
-  
   def prepare(unit_type)
     todays_date = Time.now
     tds = todays_date.strftime("%Y-%m-%d")
@@ -287,17 +304,18 @@ class PdfScoutYouthApplication < PdfScoutApplication
   
     attrs = {
       p3_registration_date: tds, 
-      p3_scout_full_name: clean(data[:full_name]),
-      p5_arrow_of_light: arrow_of_light, 
       p3_unit_number: unit_no, 
       p5_adult_ethnicity: data[:adult][:ethnicity], 
       p5_scout_ethnicity: data[:youth][:ethnicity],
       p5_parent_gender: data[:adult][:gender], 
       p5_scout_gender: data[:youth][:gender],
-      p5_scout_grade: clean(data[:youth][:grade]),
       p5_scout_school: clean(data[:youth][:school]),
       p5_unit_number: unit_no
     }.merge(
+      arrow_of_light
+    ).merge(
+      grade
+    ).merge(
       boys_life
     ).merge(
       lone_scout
@@ -357,5 +375,8 @@ class PdfScoutYouthApplication < PdfScoutApplication
       )
     end
 
+    attrs = attrs.merge(file_label(unit_type))
+
+    attrs
   end
 end

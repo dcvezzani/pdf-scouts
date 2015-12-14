@@ -1,6 +1,7 @@
-{:p5_info_alcohol=>"2", :p5_info_child_abuse=>"2", :p5_info_conduct_or_behavior=>"No", :p5_info_criminal_offense=>"2", :p5_info_drivers_license=>"2", :p5_info_suitability=>"2", :p5_eagle_scout_status=>"No", :p5_boys_life_subscription=>false, :p4_date=>"2015-12-12", :p4_request_free_copy=>false, :p4_unit_no=>"0092", :p5_term_in_months=>12, :p5_adult_ethnicity=>"wht_cauca", :p5_adult_gender=>"male", :p5_bg_01_council=>"RIO DEL ORO", :p5_leader_status=>"former", :p5_unit_number=>"0092", :p5_unity_type=>:troop, :p5_memberships=>"Church of Jesus Christ of Latter Day Saints", :p5_youth_experience=>"church youth leader, instructor, scouts", :p5_expiration_date_day=>"12", :p5_expiration_date_month=>"12", :p5_expiration_date_year=>"2015", :p5_occupation=>"S/W ENGINEER", :p5_employer=>"CRYSTALCOMMERCE", :p5_mailing_address=>"5922 N. KROTIK CT.", :p5_city=>"ATWATER", :p5_state=>"CA", :p5_zip_code=>"95301", :p5_country=>"US", :p5_first_name=>"DAVID", :p5_middle_name=>"CURTIS", :p5_last_name=>"VEZZANI", :p5_name_suffix=>"", :p5_drivers_license_number=>"", :p5_dl_state=>"CA", :p5_registration_fee_cents=>"00", :p5_registration_fee_dollars=>"12", :p5_residence_01_city=>"ATWATER", :p5_residence_01_state=>"CA", :p5_residence_02_city=>"CHARLES TOWN", :p5_residence_02_state=>"WV", :p5_position_code=>"CR", :p5_position_description=>"CHARTERED ORGANIZATION REPRESENTATIVE", :p5_phone_home_area_code=>"209", :p5_phone_home_prefix=>"676", :p5_phone_home_suffix=>"4097", :p5_phone_cell_area_code=>"209", :p5_phone_cell_prefix=>"756", :p5_phone_cell_suffix=>"9688", :p5_phone_business_area_code=>"209", :p5_phone_business_prefix=>"756", :p5_phone_business_suffix=>"9688", :p5_phone_business_extension=>"", :p5_dob_day=>"19", :p5_dob_month=>"09", :p5_dob_year=>"1972", :p5_info_alcohol_desc=>nil, :p5_info_child_abuse_desc=>nil, :p5_info_conduct_or_behavior_desc=>nil, :p5_info_criminal_offense_desc=>nil, :p5_info_drivers_license_desc=>nil, :p5_info_suitability_desc=>nil, :p5_email_type=>:home, :p5_email_username=>"DCVEZZANI", :p5_email_domain=>"GMAIL.COM", :p4_first_name=>"DAVID", :p4_middle_name=>"CURTIS", :p4_last_name=>"VEZZANI", :p4_name_suffix=>"", :p5_business_address=>"220TH ST SW", :p5_business_city=>"MOUNTLAKE TERRACE", :p5_business_state=>"WA", :p5_business_zip_code=>"98043", :p5_business_country=>"US", :p5_reference_01_name=>"DAVID TYRRELL", :p5_reference_01_phone_area_code=>"304", :p5_reference_01_phone_main=>"261-4319", :p5_reference_02_name=>"DAVID ORR", :p5_reference_02_phone_area_code=>"304", :p5_reference_02_phone_main=>"707-4042", :p5_reference_03_name=>"STEPHEN VORHAUER", :p5_reference_03_phone_area_code=>"304", :p5_reference_03_phone_main=>"725-4419", :p5_bg_01_position=>"RECHARTERING REP", :p5_bg_01_year=>"2014", :p5_bg_02_position=>"TROOP COMMITTEE CHAIR", :p5_bg_02_council=>"RIO DEL ORO", :p5_bg_02_year=>"2013"}
+{:p5_info_alcohol=>"2", :p5_info_child_abuse=>"2", :p5_info_conduct_or_behavior=>"No", :p5_info_criminal_offense=>"2", :p5_info_drivers_license=>"2", :p5_info_suitability=>"2", :p5_eagle_scout_status=>"No", :p5_boys_life_subscription=>false, :p4_date=>"2015-12-13", :p4_request_free_copy=>false, :p4_unit_no=>"0092", :p5_term_in_months=>12, :p5_adult_ethnicity=>"wht_cauca", :p5_adult_gender=>"male", :p5_bg_01_council=>"RIO DEL ORO", :p5_leader_status=>"former", :p5_unit_number=>"0092", :p5_unity_type=>:troop, :p5_memberships=>"Church of Jesus Christ of Latter Day Saints", :p5_youth_experience=>"church youth leader, instructor, scouts", :p5_expiration_date_day=>"13", :p5_expiration_date_month=>"12", :p5_expiration_date_year=>"2015", :p5_occupation=>"S/W ENGINEER", :p5_employer=>"CRYSTALCOMMERCE", :p5_mailing_address=>"5922 N KROTIK CT", :p5_city=>"ATWATER", :p5_state=>"CA", :p5_zip_code=>"95301", :p5_country=>"US", :p5_first_name=>"DAVID", :p5_middle_name=>"CURTIS", :p5_last_name=>"VEZZANI", :p5_name_suffix=>"", :p5_drivers_license_number=>"", :p5_dl_state=>"CA", :p5_registration_fee_cents=>"00", :p5_registration_fee_dollars=>"12", :p5_residence_01_city=>"ATWATER", :p5_residence_01_state=>"CA", :p5_residence_02_city=>"CHARLES TOWN", :p5_residence_02_state=>"WV", :p5_position_code=>"CR", :p5_position_description=>"CHARTERED ORGANIZATION REPRESENTATIVE", :p5_phone_home_area_code=>"209", :p5_phone_home_prefix=>"676", :p5_phone_home_suffix=>"4097", :p5_phone_cell_area_code=>"209", :p5_phone_cell_prefix=>"756", :p5_phone_cell_suffix=>"9688", :p5_phone_business_area_code=>"209", :p5_phone_business_prefix=>"756", :p5_phone_business_suffix=>"9688", :p5_phone_business_extension=>"", :p5_dob_day=>"19", :p5_dob_month=>"09", :p5_dob_year=>"1972", :p5_info_alcohol_desc=>nil, :p5_info_child_abuse_desc=>nil, :p5_info_conduct_or_behavior_desc=>nil, :p5_info_criminal_offense_desc=>nil, :p5_info_drivers_license_desc=>nil, :p5_info_suitability_desc=>nil, :p5_email_type=>:home, :p5_email_username=>"DCVEZZANI", :p5_email_domain=>"GMAILCOM", :p4_first_name=>"DAVID", :p4_middle_name=>"CURTIS", :p4_last_name=>"VEZZANI", :p4_name_suffix=>"", :p5_business_address=>"220TH ST SW", :p5_business_city=>"MOUNTLAKE TERRACE", :p5_business_state=>"WA", :p5_business_zip_code=>"98043", :p5_business_country=>"US", :p5_reference_01_name=>"DAVID TYRRELL", :p5_reference_01_phone_area_code=>"304", :p5_reference_01_phone_main=>"261-4319", :p5_reference_02_name=>"DAVID ORR", :p5_reference_02_phone_area_code=>"304", :p5_reference_02_phone_main=>"707-4042", :p5_reference_03_name=>"STEPHEN VORHAUER", :p5_reference_03_phone_area_code=>"304", :p5_reference_03_phone_main=>"725-4419", :p5_bg_01_position=>"RECHARTERING REP", :p5_bg_01_year=>"2014", :p5_bg_02_position=>"TROOP COMMITTEE CHAIR", :p5_bg_02_council=>"RIO DEL ORO", :p5_bg_02_year=>"2013", :file_label=>"vezzani-david-curtis-troop"}
 
-p4_date: 2015-12-12
+file_label: vezzani-david-curtis-troop
+p4_date: 2015-12-13
 p4_first_name: DAVID
 p4_last_name: VEZZANI
 p4_middle_name: CURTIS
@@ -29,11 +30,11 @@ p5_dob_month: 09
 p5_dob_year: 1972
 p5_drivers_license_number: 
 p5_eagle_scout_status: No
-p5_email_domain: GMAIL.COM
+p5_email_domain: GMAILCOM
 p5_email_type: home
 p5_email_username: DCVEZZANI
 p5_employer: CRYSTALCOMMERCE
-p5_expiration_date_day: 12
+p5_expiration_date_day: 13
 p5_expiration_date_month: 12
 p5_expiration_date_year: 2015
 p5_first_name: DAVID
@@ -51,7 +52,7 @@ p5_info_suitability: 2
 p5_info_suitability_desc: 
 p5_last_name: VEZZANI
 p5_leader_status: former
-p5_mailing_address: 5922 N. KROTIK CT.
+p5_mailing_address: 5922 N KROTIK CT
 p5_memberships: Church of Jesus Christ of Latter Day Saints
 p5_middle_name: CURTIS
 p5_name_suffix: 

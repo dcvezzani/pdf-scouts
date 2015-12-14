@@ -1,2 +1,5 @@
 .sw*
 .*.sw*
+
+.byebug_history
+*.filled.pdf

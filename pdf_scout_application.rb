@@ -2,11 +2,39 @@ require 'bundler/setup'
 require 'pdf-forms'
 require 'time'
 
+=begin
+irb
+
+home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
+
+require 'yaml'
+data = YAML.load_file("#{home}/data.yml")
+upc = YAML.load_file("#{home}/unit_position_codes.yml")
+
+load "#{home}/pdf_scout_application.rb"
+load "#{home}/pdf_scout_youth_application.rb"
+
+data[:families]["Vezzani"]
+
+youth = PdfScoutYouthApplication.new(data, 1, :troop, upc)
+
+attrs = youth.prepare(:troop)
+File.open("#{home}/chk-youth.txt", "w"){|f| f.write attrs.inspect
+  f.write "\n\n"
+  f.write attrs.keys.map(&:to_s).sort.map{|k| "#{k}: #{attrs[k.to_sym]}"}.join("\n")
+}
+# File.open("#{home}/youth-fields.txt", "w"){|f| f.write youth.fields(:youth).sort.join("\n") }
+
+youth.print(attrs)
+
+`open #{home}/524-501.adult.final.unc.filled.pdf`
+=end
+
 class PdfScoutApplication
-  attr_accessor :data, :unit_position_codes
+  attr_accessor :data, :unit_position_codes, :file_label
   attr_reader :pdftk
 
-  HOME = '/Users/davidvezzani/Dropbox/20151101-pdf-parsing'
+  HOME = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
   YOUTH = '524-406A.youth.final.unc.pdf'
   ADULT = '524-501.adult.final.unc.pdf'
 
@@ -85,5 +113,25 @@ class PdfScoutApplication
       "#{HOME}/#{YOUTH}"
     end
     @pdftk.get_field_names pdf_template
+  end
+
+  def print(type, attrs, filename = nil)
+    pdf_template = case(type)
+    when :adult
+      "#{HOME}/#{ADULT}"
+    when :youth
+      "#{HOME}/#{YOUTH}"
+    end
+    
+    filename = if(filename.nil?)
+      re = /\.(?=pdf$)/
+      filename, extension = pdf_template.split(re)
+      "#{filename}.filled.#{extension}"
+    else
+      filename
+    end
+    
+    @pdftk.fill_form pdf_template, "#{filename}", attrs
+    "#{filename}"
   end
 end
