@@ -76,7 +76,7 @@ class PdfScoutYouthApplication < PdfScoutApplication
 
   def arrow_of_light
     arrow_of_light_value = (data[:youth][:arrow_of_light]) ? 'Yes' : false
-    puts ">>> #{arrow_of_light_value}"
+    # puts ">>> #{arrow_of_light_value}"
     {
       p5_arrow_of_light: arrow_of_light_value
     }

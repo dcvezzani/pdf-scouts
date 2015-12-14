@@ -13,21 +13,27 @@ upc = YAML.load_file("#{home}/unit_position_codes.yml")
 
 load "#{home}/pdf_scout_application.rb"
 load "#{home}/pdf_scout_youth_application.rb"
+load "#{home}/pdf_scout_adult_application.rb"
 
-data[:families]["Vezzani"]
+fdata = data[:families]["Vezzani"]
 
-youth = PdfScoutYouthApplication.new(data, 1, :troop, upc)
+family_unit_types = []
+fdata[:scouts].each.with_index do |sdata, i|
+  supported_units = (sdata[:unit_types] or []).concat(data[:unit_types])
+  family_unit_types = family_unit_types.concat(supported_units).uniq
 
-attrs = youth.prepare(:troop)
-File.open("#{home}/chk-youth.txt", "w"){|f| f.write attrs.inspect
-  f.write "\n\n"
-  f.write attrs.keys.map(&:to_s).sort.map{|k| "#{k}: #{attrs[k.to_sym]}"}.join("\n")
-}
-# File.open("#{home}/youth-fields.txt", "w"){|f| f.write youth.fields(:youth).sort.join("\n") }
+  supported_units.each do |unit_type|
+    youth = PdfScoutYouthApplication.new(fdata, i, unit_type, upc)
+    attrs = youth.prepare(unit_type)
+    youth.print(:youth, attrs, "#{home}/youth.#{attrs[:file_label]}.unc.filled.pdf")
+  end
+end
 
-youth.print(attrs)
-
-`open #{home}/524-501.adult.final.unc.filled.pdf`
+family_unit_types.each do |unit_type|
+  adult = PdfScoutAdultApplication.new(fdata, unit_type, upc)
+  attrs = adult.prepare(unit_type)
+  adult.print(:adult, attrs, "#{home}/adult.#{attrs[:file_label]}.unc.filled.pdf")
+end
 =end
 
 class PdfScoutApplication
