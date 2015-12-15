@@ -2,25 +2,6 @@ require 'bundler/setup'
 require_relative 'pdf_scout_application'
 
 =begin
-require 'yaml'
-data = YAML.load_file('/Users/davidvezzani/Dropbox/20151101-pdf-parsing/data.yml')
-upc = YAML.load_file('/Users/davidvezzani/Dropbox/20151101-pdf-parsing/unit_position_codes.yml')
-
-# load '/Users/davidvezzani/Dropbox/20151101-pdf-parsing/pdf_scout_application.rb'
-load '/Users/davidvezzani/Dropbox/20151101-pdf-parsing/pdf_scout_adult_application.rb'
-adult = PdfScoutAdultApplication.new(data, upc)
-
-attrs = adult.prepare(:troop)
-File.open("chk-adult.txt", "w"){|f| f.write attrs.inspect
-  f.write "\n\n"
-  f.write attrs.keys.map(&:to_s).sort.map{|k| "#{k}: #{attrs[k.to_sym]}"}.join("\n")
-}
-# File.open("adult-fields.txt", "w"){|f| f.write adult.fields(:adult).sort.join("\n") }
-
-adult.print(attrs)
-=end
-
-=begin
 irb
 
 home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
