@@ -1,5 +1,19 @@
 add this to the adult form
 
+%s/\(^\| \)\@<=826 0 /630 0 /g
+%s/\(^\| \)\@<=824 0 /631 0 /g
+%s/\(^\| \)\@<=827 0 /632 0 /g
+%s/\(^\| \)\@<=829 0 /633 0 /g
+%s/\(^\| \)\@<=828 0 /634 0 /g
+%s/\(^\| \)\@<=825 0 /635 0 /g
+
+%s/\(^\| \)\@<=630 0 /709 0 /g
+%s/\(^\| \)\@<=631 0 /710 0 /g
+%s/\(^\| \)\@<=632 0 /711 0 /g
+%s/\(^\| \)\@<=633 0 /712 0 /g
+%s/\(^\| \)\@<=634 0 /713 0 /g
+%s/\(^\| \)\@<=635 0 /714 0 /g
+
 312 0 obj 
 <<
 /pdftk_PageNum 5
@@ -10,12 +24,12 @@ add this to the adult form
 /ProcSet [/PDF /ImageB /ImageC /ImageI]
 /XObject 
 <<
-/Im1 826 0 R
+/Im1 709 0 R
 ...
 >>>
 /ColorSpace 
 <<
-/CS9 824 0 R
+/CS9 710 0 R
 ...
 >>
 /Contents 333 0 R
@@ -34,7 +48,7 @@ Do Q
 endstream 
 endobj 
 
-826 0 obj 
+709 0 obj 
 <<
 /Subtype /Image
 /Intent /Perceptual
@@ -44,16 +58,16 @@ endobj
 /Length 84906
 /BitsPerComponent 8
 /Interpolate true
-/ColorSpace 827 0 R
-/SMask 829 0 R
+/ColorSpace 711 0 R
+/SMask 712 0 R
 >>
 stream
 ...
 
-827 0 obj [/ICCBased 828 0 R]
+711 0 obj [/ICCBased 713 0 R]
 endobj 
 
-828 0 obj 
+713 0 obj 
 <<
 /N 3
 /Length 3144
@@ -62,7 +76,7 @@ endobj
 stream
 ...
 
-829 0 obj 
+712 0 obj 
 <<
 /Subtype /Image
 /Type /XObject
@@ -76,10 +90,10 @@ stream
 stream
 ...
 
-824 0 obj [/ICCBased 825 0 R]
+710 0 obj [/ICCBased 714 0 R]
 endobj 
 
-825 0 obj 
+714 0 obj 
 <<
 /N 3
 /Length 3144
