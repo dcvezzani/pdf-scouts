@@ -1,4 +1,5 @@
 require 'csv'
+require 'yaml'
 
 class CollectRecharterData
   attr_reader :home, :unit_position_codes, :csv_file, :families, :csv, :data
@@ -73,7 +74,7 @@ class CollectRecharterData
         additional_information: []
       }
       
-      lines = member["background_positions"].split(/;\s*/)
+      lines = member["background_positions"].to_s.split(/;\s*/)
       lines.each do |line|
         bg_pos = line.to_s.split(/,\s*/)
 
@@ -95,7 +96,7 @@ class CollectRecharterData
       end
       
 
-      lines = member["references"].split(/;\s*/)
+      lines = member["references"].to_s.split(/;\s*/)
       lines.each do |line|
         reference = line.to_s.split(/,\s*/)
 
@@ -108,7 +109,7 @@ class CollectRecharterData
       end
 
       unless(member["additional_information"].nil?)
-        if(member["additional_information"] == "false")
+        if(member["additional_information"] == "FALSE")
           adata[:background][:additional_information] = {
             removed_for_personal_conduct: false, 
             alcohol_abuse: false, 
@@ -132,10 +133,10 @@ class CollectRecharterData
     list
   end
 
-  def youth(mdata)
+  def youth(member)
       ydata = {
         full_name: member["name"], 
-        dob: Time.strptime(member["bday"], "%d %b %y").strftime("%Y-%m-%d"), 
+        dob: DateTime.strptime(member["bday"], "%d %b %y").strftime("%Y-%m-%d"), 
         grade: member["grade"], 
         ethnicity: member["ethnicity"], 
         school: member["school"], 
@@ -145,7 +146,8 @@ class CollectRecharterData
 
       ydata[:unit_types] = []
       %w{troop team crew cub webelos}.each do |unit_type|
-        ydata[:unit_types] << unit_type if member[unit_type]
+        # debugger
+        ydata[:unit_types] << unit_type if(member[unit_type] == "TRUE")
       end
       
       ydata

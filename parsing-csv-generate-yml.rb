@@ -16,8 +16,9 @@ to_print << line.to_h if line["membership_num"] and line["membership_num"].downc
 end
 
 families = to_print.map{|x| x["family"]}.uniq
-=> ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata", "Moore"]
+#=> ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata", "Moore"]
 
+families << "Vezzani"
 to_print = {}
 
 families.each do |family|
