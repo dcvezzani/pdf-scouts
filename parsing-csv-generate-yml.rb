@@ -1,5 +1,8 @@
 require 'csv'
 
+home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
+unit_position_codes = YAML.load_file("#{home}/unit_position_codes.yml")
+
 csv_file = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts/rechartering-work.csv'
 body = IO.read(csv_file)
 csv = CSV.new(body, headers: true)
@@ -23,6 +26,135 @@ families.each do |family|
     to_print[family] << line.to_h if line["family"] == family
   end
 end
+
+data = {
+  unit_number: 92, 
+  council: "Rio del Oro", 
+  unit_types: %w{troop}, 
+  boys_life_subscription: true, 
+  families: {}
+}
+
+to_print.each do |family, mdata|
+  fdata = {
+    address: mdata.first[:address], 
+    phone: mdata.first[:phone], 
+    scouts: [], 
+    adults: []
+  }
+
+  mdata.each do |member|
+    case(member[:person]) do
+    when "Adult"
+      adult = {
+        full_name: member["name"], 
+        relationship: member["relationship"], 
+        email: member["email"], 
+        phone_cell: '', 
+        dob: member["bday"], 
+        ethnicity: member["ethnicity"], 
+        gender: member["gender"], 
+        previous_scouting_experience: member["previous_experience"], 
+        eagle_scout: member["eagle_scout"], 
+        boys_life_subscription: false
+      }
+
+      occu = (member["occupation"] or '').split(/;/)
+      if(occu.length == 4)
+      adult[:employment] = {
+        occupation: occu[0], 
+        employer: occu[1], 
+        phone: occu[2], 
+        address: occu[3]
+      }
+      end
+
+      adult[:position] = {
+        code: member["position_code"], 
+        description: member["position_description"] or unit_position_codes[member["position_code"].to_sym]
+      }
+
+      adult[:background] = {
+        positions: [], 
+        previous_residences: [], 
+        current_memberships: [], 
+        references: [], 
+        additional_information: []
+      }
+      
+      lines = member["background_positions"].split(/;\s*/)
+      lines.each do |line|
+        bg_pos = line.to_s.split(/,\s*/)
+
+        if(occu.length == 3)
+        adult[:background][:positions] << {
+          :name: bg_pos[0]
+          :council: bg_pos[1]
+          :year: bg_pos[2]
+        }
+        end
+      end
+
+      adult[:background][:youth_experience] = member["youth_experience"]
+      adult[:background][:current_memberships] = member["memberships"]
+      
+      lines = member["residences"].to_s.split(/;\s*/)
+      lines.each do |line|
+        adult[:background][:residences] = line
+      end
+      
+
+      lines = member["references"].split(/;\s*/)
+      lines.each do |line|
+        reference = line.to_s.split(/,\s*/)
+
+        if(reference.length == 2)
+        adult[:background][:references] << {
+          name: reference[0], 
+          phone: reference[1]
+        }
+        end
+      end
+
+      unless(member["additional_information"].nil?)
+        if(member["additional_information"] == "false")
+          adult[:background][:additional_information] = {
+            :removed_for_personal_conduct: false, 
+            :alcohol_abuse: false, 
+            :arrested: false, 
+            :drivers_license_suspend: false, 
+            :child_abuse: false, 
+            :unsuitable_to_work_with_youth: false
+          }
+        end
+      end
+  
+      fdata[:adults] << adult
+
+    when "Youth"
+      youth = {
+        full_name: member["name"], 
+        dob: Time.strptime(member["bday"], "%d %b %y").strftime("%Y-%m-%d"), 
+
+        grade: member["grade"]
+        ethnicity: member["ethnicity"]
+        school: member["school"]
+        gender: member["gender"]
+        previous_status: member["previous_status"]
+      }
+
+      youth[:unit_types] = []
+      %w{troop team crew cub webelos}.each do |unit_type|
+        youth[:unit_types] << unit_type if member[unit_type]
+      end
+      
+      fdata[:youth] << youth
+    end
+  end
+
+  data[:families][family] = fdata
+end
+
 
 
 puts to_print["Conn"]
@@ -118,6 +250,7 @@ Time.strptime("5 Dec 79", "%d %b %y").strftime("%Y-%m-%d")
               :phone: reference[1]
           end
 
+        unless(adult["memberships"].nil?)
         :additional_information:
           :removed_for_personal_conduct: 
           :alcohol_abuse: 
@@ -125,6 +258,7 @@ Time.strptime("5 Dec 79", "%d %b %y").strftime("%Y-%m-%d")
           :drivers_license_suspend: 
           :child_abuse: 
           :unsuitable_to_work_with_youth: 
+        end
 
     end
     
