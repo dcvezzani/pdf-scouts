@@ -214,8 +214,8 @@ class PdfScoutYouthApplication < PdfScoutApplication
 
     {
       # email: "dcvezzani@gmail.com", 
-      p5_parent_email_user: clean(email_info[:username]), 
-      p5_parent_email_domain: clean(email_info[:domain])
+      p5_parent_email_user: email_info[:username], 
+      p5_parent_email_domain: email_info[:domain]
     }
   end
   

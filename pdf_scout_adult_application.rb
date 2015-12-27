@@ -252,8 +252,8 @@ class PdfScoutAdultApplication < PdfScoutApplication
     {
       # email: "dcvezzani@gmail.com", 
       p5_email_type: type,
-      p5_email_username: clean(email_info[:username]), 
-      p5_email_domain: clean(email_info[:domain])
+      p5_email_username: email_info[:username], 
+      p5_email_domain: email_info[:domain]
     }
   end
 

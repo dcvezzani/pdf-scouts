@@ -87,8 +87,8 @@ class PdfScoutApplication
   def parse_email(line)
     md = line.match(RE_EMAIL)
     {
-      username: clean(md[1]), 
-      domain: clean(md[2])
+      username: clean(md[1], false), 
+      domain: clean(md[2], false)
     }
   end
   
@@ -124,8 +124,10 @@ class PdfScoutApplication
   end
 
 
-  def clean(value)
-    value.to_s.upcase.gsub(/\./, '')
+  def clean(value, pattern=/\./)
+    value = value.to_s.upcase
+    value = value.gsub(pattern, '') if pattern
+    value
   end
 
   def fields(type)
