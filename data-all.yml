@@ -1,0 +1,604 @@
+---
+:unit_number: 92
+:council: Rio del Oro
+:unit_types:
+- troop
+:boys_life_subscription: true
+:families:
+  Miles:
+    :address: 613 Village Circle Dr
+    :phone: 209-601-3283
+    :scouts: []
+    :adults:
+    - :full_name: David Miles
+      :relationship: 
+      :email: DC_Miles@sbcglobal.net
+      :phone_cell: ''
+      :dob: 6 Dec 58
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: new
+      :eagle_scout: 'TRUE'
+      :boys_life_subscription: false
+      :position:
+        :code: CC
+        :description: Committee chairman
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth: []
+  Conn:
+    :address: 2060 4th St
+    :phone: 209-338-7588
+    :scouts: []
+    :adults:
+    - :full_name: Diane Conn
+      :relationship: 
+      :email: diane125@msn.com
+      :phone_cell: ''
+      :dob: 5 Dec 79
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: new
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: MC
+        :description: Committee member
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Andrew Conn
+      :dob: '2002-06-09'
+      :grade: '8'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: troop
+      :unit_types:
+      - troop
+  Hanson:
+    :address: 3217 Heather Glen Lane
+    :phone: 209-617-6968
+    :scouts: []
+    :adults:
+    - :full_name: Etta Hanson
+      :relationship: grandmother
+      :email: ReedJ1@pacbell.net
+      :phone_cell: ''
+      :dob: 30 Jun 48
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: new
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: '10'
+        :description: Leader of 11-year old Scouts (LDS Troop)
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    - :full_name: Reed Hanson
+      :relationship: grandfather
+      :email: ReedJ1@pacbell.net
+      :phone_cell: ''
+      :dob: 12 Apr 48
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: former
+      :eagle_scout: 'TRUE'
+      :boys_life_subscription: false
+      :position:
+        :code: '10'
+        :description: Leader of 11-year old Scouts (LDS Troop)
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Hyrum Barber
+      :dob: '2009-02-01'
+      :grade: '1'
+      :ethnicity: wht_cauca
+      :school: Hickman
+      :gender: male
+      :previous_status: 
+      :unit_types: []
+  Segales:
+    :address: 7332 Pelican Ct., Winton, California 95301
+    :phone: 209-617-2886
+    :scouts: []
+    :adults:
+    - :full_name: Gerry Segales
+      :relationship: 
+      :email: gsegales@yahoo.com
+      :phone_cell: ''
+      :dob: 2 Mar 62
+      :ethnicity: pacif_isle
+      :gender: male
+      :previous_scouting_experience: new
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: MC
+        :description: Committee member
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth: []
+  Van Horn:
+    :address: 1971 Summerglen Drive
+    :phone: 209-761-9238
+    :scouts: []
+    :adults:
+    - :full_name: Mandy Van Horn
+      :relationship: 
+      :email: vanhorn66@sbcglobal.net
+      :phone_cell: ''
+      :dob: 25 May 76
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: new
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: DL
+        :description: Den leader
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    - :full_name: Will Van Horn
+      :relationship: 
+      :email: vanhorn66@hotmail.com
+      :phone_cell: ''
+      :dob: 30 Aug 75
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: new
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: CM
+        :description: Cubmaster
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Harrison Van Horn
+      :dob: '2006-12-25'
+      :grade: '3'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types: []
+  Charlson:
+    :address: 40 Jasmine Ave
+    :phone: 209-484-9683
+    :scouts: []
+    :adults:
+    - :full_name: Ryan Charlson
+      :relationship: 
+      :email: jamesrcharlson@gmail.com
+      :phone_cell: ''
+      :dob: 3 Jul 82
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: former
+      :eagle_scout: 'TRUE'
+      :boys_life_subscription: false
+      :position:
+        :code: SM
+        :description: Scoutmaster
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Charlson, Michael James
+      :dob: '2004-11-21'
+      :grade: '5'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: webelos
+      :unit_types:
+      - troop
+    - :full_name: Charlson, Gabriel
+      :dob: '2004-11-21'
+      :grade: '5'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - webelos
+  North:
+    :address: 3151 Dakota St
+    :phone: 209-489-8318
+    :scouts: []
+    :adults:
+    - :full_name: Thomas North
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 22 Sep 80
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Thomas North Jr.
+      :dob: '2002-06-28'
+      :grade: '8'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: troop
+      :unit_types:
+      - troop
+  Durrant:
+    :address: 1400 Culver Circle
+    :phone: 209-676-9291
+    :scouts: []
+    :adults:
+    - :full_name: Joseph Durrant
+      :relationship: 
+      :email: kit74ella81@gmail.com
+      :phone_cell: ''
+      :dob: 28 Jan 74
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: former
+      :eagle_scout: 'TRUE'
+      :boys_life_subscription: false
+      :position:
+        :code: MC
+        :description: Committee member
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    - :full_name: Elaine Durrant
+      :relationship: 
+      :email: jnedurrant@gmail.com
+      :phone_cell: ''
+      :dob: 9 May 78
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Tyler Durrant
+      :dob: '2000-02-01'
+      :grade: '10'
+      :ethnicity: wht_cauca
+      :school: Atwater High
+      :gender: male
+      :previous_status: team
+      :unit_types:
+      - troop
+      - team
+    - :full_name: Jacob Durrant
+      :dob: '2001-12-14'
+      :grade: '8'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: troop
+      :unit_types:
+      - troop
+  Szelestey:
+    :address: 2580 Boulder Dr
+    :phone: 209-358-4211
+    :scouts: []
+    :adults:
+    - :full_name: 'Brooke Szelestey '
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 16 Jun 77
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    - :full_name: 'Jeremy Szelestey '
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 18 Apr 76
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Colton Szelestey
+      :dob: '2003-09-25'
+      :grade: '6'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: webelos
+      :unit_types:
+      - troop
+    - :full_name: Szelestey, Drake Jeremy
+      :dob: '2006-09-04'
+      :grade: '3'
+      :ethnicity: wht_cauca
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types: []
+  Larios:
+    :address: 9780 Crocker, Cressey, California 95312
+    :phone: 209-480-2739
+    :scouts: []
+    :adults:
+    - :full_name: Ruth Larios
+      :relationship: 
+      :email: mommyzoo@yahoo.com
+      :phone_cell: ''
+      :dob: 20 May 61
+      :ethnicity: wht_cauca
+      :gender: female
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: CA
+        :description: Assistant Cubmaster
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth: []
+  Roy:
+    :address: 6831 Chestnut Ln, Winton, California 95388-9536
+    :phone: 209-631-0376
+    :scouts: []
+    :adults:
+    - :full_name: 'Joseph Leroy Ripplinger '
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 23 Jul 79
+      :ethnicity: 
+      :gender: male
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Roy, Sean Lemel
+      :dob: '1999-09-14'
+      :grade: '10'
+      :ethnicity: blk_afr_amer
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop
+      - crew
+    - :full_name: Pulido, Miguel Antonio
+      :dob: '2004-04-22'
+      :grade: '6'
+      :ethnicity: hisp_lat
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop
+    - :full_name: Roy, Nasean Jamel
+      :dob: '2004-04-30'
+      :grade: '6'
+      :ethnicity: blk_afr_amer
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop
+  Pickett:
+    :address: 6429 Gertrude Ave, Winton, California 95388
+    :phone: 209-676-2228
+    :scouts: []
+    :adults:
+    - :full_name: 'Sean Nolan Pickett '
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 6 Mar 69
+      :ethnicity: wht_cauca
+      :gender: male
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Scott O'Reilly
+      :dob: '2001-07-26'
+      :grade: '9'
+      :ethnicity: wht_cauca
+      :school: Atwater High
+      :gender: male
+      :previous_status: troop
+      :unit_types:
+      - troop
+      - team
+  Laloata:
+    :address: 2501 Boulder Dr
+    :phone: 209-256-4206
+    :scouts: []
+    :adults:
+    - :full_name: Carolyn Upumoni Laloata
+      :relationship: 
+      :email: 
+      :phone_cell: ''
+      :dob: 22 Mar 74
+      :ethnicity: pacif_isle
+      :gender: female
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Laloata, Alfred Tolo
+      :dob: '2002-04-06'
+      :grade: '8'
+      :ethnicity: pacif_isle
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop
+    - :full_name: Laloata, Leonard Puaa Saili
+      :dob: '2004-09-22'
+      :grade: '5'
+      :ethnicity: pacif_isle
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop
+  Moore:
+    :address: 742 Oriole Way
+    :phone: 209-818-1626
+    :scouts: []
+    :adults:
+    - :full_name: Donald Curtis Moore
+      :relationship: 
+      :email: mr.moe333@gmail.com
+      :phone_cell: ''
+      :dob: 10 Jan 77
+      :ethnicity: blk_afr_amer
+      :gender: male
+      :previous_scouting_experience: 
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :position:
+        :code: PC
+        :description: Parent coordinator
+      :background:
+        :positions: []
+        :previous_residences: []
+        :current_memberships: 
+        :references: []
+        :additional_information: []
+        :youth_experience: 
+    :youth:
+    - :full_name: Moore, Shamani Jyrome
+      :dob: '2003-10-22'
+      :grade: '6'
+      :ethnicity: blk_afr_amer
+      :school: 
+      :gender: male
+      :previous_status: 
+      :unit_types:
+      - troop

@@ -6,7 +6,10 @@ require 'byebug'
 irb
 
 load '/Users/davidvezzani/Documents/journal/scm/pdf-scouts/collect_recharter_data.rb'
-CollectRecharterData.new.generate
+
+File.open("/Users/davidvezzani/Documents/journal/scm/pdf-scouts/data-all.yml", "w"){|f|
+f.write YAML::dump(CollectRecharterData.new.generate)
+}
 =end
 
 class CollectRecharterData
@@ -27,7 +30,6 @@ class CollectRecharterData
 
     families.each do |family_name, mdata|
       fdata = family(mdata)
-      debugger
       fdata[:adults] = adults(mdata)
       fdata[:youth] = youths(mdata)
       data[:families][family_name] = fdata
@@ -190,7 +192,7 @@ class CollectRecharterData
 
     families = to_print.map{|x| x["family"]}.uniq
     # => ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata"]
-    families = %w{Miles}
+    # families = %w{Vezzani}
 
     to_print = {}
 
