@@ -1,5 +1,13 @@
 require 'csv'
 require 'yaml'
+require 'byebug'
+
+=begin
+irb
+
+load '/Users/davidvezzani/Documents/journal/scm/pdf-scouts/collect_recharter_data.rb'
+CollectRecharterData.new.generate
+=end
 
 class CollectRecharterData
   attr_reader :home, :unit_position_codes, :csv_file, :families, :csv, :data
@@ -18,10 +26,11 @@ class CollectRecharterData
     @families = families_reduce
 
     families.each do |family_name, mdata|
-      fdata = family(family_name, mdata)
+      fdata = family(mdata)
+      debugger
       fdata[:adults] = adults(mdata)
       fdata[:youth] = youths(mdata)
-      data[:families] << fdata
+      data[:families][family_name] = fdata
     end
 
     data
@@ -125,10 +134,10 @@ class CollectRecharterData
   end
 
   def adults(mdata)
-    list
-    mdata.each do |mdata|
-      next if mdata[:person] != "Adult"
-      list << adult(mdata)
+    list = []
+    mdata.each do |md|
+      next if md["person"] != "Adult"
+      list << adult(md)
     end
     list
   end
@@ -146,7 +155,6 @@ class CollectRecharterData
 
       ydata[:unit_types] = []
       %w{troop team crew cub webelos}.each do |unit_type|
-        # debugger
         ydata[:unit_types] << unit_type if(member[unit_type] == "TRUE")
       end
       
@@ -154,22 +162,20 @@ class CollectRecharterData
   end
 
   def youths(mdata)
-    list
-    mdata.each do |mdata|
-      next if mdata[:person] != "Youth"
-      list << youth(mdata)
+    list = []
+    mdata.each do |md|
+      next if md["person"] != "Youth"
+      list << youth(md)
     end
     list
   end
 
   def family(mdata)
-    {"family_name" => 
-      {
-        address: mdata.first[:address], 
-        phone: mdata.first[:phone], 
-        scouts: [], 
-        adults: []
-      }
+    {
+      address: mdata.first["address"], 
+      phone: mdata.first["phone"], 
+      scouts: [], 
+      adults: []
     }
   end
 
@@ -183,12 +189,14 @@ class CollectRecharterData
     end
 
     families = to_print.map{|x| x["family"]}.uniq
-    # => ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata", "Moore"]
+    # => ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata"]
+    families = %w{Miles}
 
     to_print = {}
 
     families.each do |family|
       lines.each do |line|
+        # debugger if line["family"] == family
         to_print[family] = [] if to_print[family].nil?
         to_print[family] << line.to_h if line["family"] == family
       end
