@@ -6,6 +6,7 @@ require 'byebug'
 irb
 
 load '/Users/davidvezzani/Documents/journal/scm/pdf-scouts/collect_recharter_data.rb'
+CollectRecharterData.new.generate
 
 File.open("/Users/davidvezzani/Documents/journal/scm/pdf-scouts/data-all.yml", "w"){|f|
 f.write YAML::dump(CollectRecharterData.new.generate)
@@ -14,6 +15,14 @@ f.write YAML::dump(CollectRecharterData.new.generate)
 
 class CollectRecharterData
   attr_reader :home, :unit_position_codes, :csv_file, :families, :csv, :data
+
+  UNIT_TYPES = {
+    "troop" => "troop", 
+    "team" => "team", 
+    "crew" => "crew", 
+    "pack" => "cub", 
+    "webelos" => "webelos"
+  }
 
   def initialize
     @home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
@@ -31,7 +40,7 @@ class CollectRecharterData
     families.each do |family_name, mdata|
       fdata = family(mdata)
       fdata[:adults] = adults(mdata)
-      fdata[:youth] = youths(mdata)
+      fdata[:scouts] = youths(mdata)
       data[:families][family_name] = fdata
     end
 
@@ -48,20 +57,55 @@ class CollectRecharterData
     }
   end
 
+  def format_date(date_string)
+    re = /^(\d+) (\w+) (\d+)$/
+    md = date_string.match(re)
+    year = md[3].to_i
+
+    year = (year > 16) ? "19#{year.to_s.rjust(2, '0')}" : "20#{year.to_s.rjust(2, '0')}" 
+    "#{md[1]} #{md[2]} #{year}"
+  end
+
+  def select_relationship(relationship)
+    if(relationship.nil? or relationship.to_s.length == 0)
+      'parent'
+    else
+      relationship
+    end
+  end
+
+  def select_experience(experience)
+    if(experience and experience.downcase.strip == 'new')
+      ''
+    else
+      experience
+    end
+  end
+
   def adult(member)
       adata = {
         full_name: member["name"], 
-        relationship: member["relationship"], 
+        relationship: select_relationship(member["relationship"]), 
         email: member["email"], 
         phone_cell: '', 
-        dob: member["bday"], 
+        dob: format_date(member["bday"]), 
         ethnicity: member["ethnicity"], 
         gender: member["gender"], 
-        previous_scouting_experience: member["previous_experience"], 
+        previous_scouting_experience: select_experience(member["previous_experience"]), 
         eagle_scout: member["eagle_scout"], 
         boys_life_subscription: false
       }
 
+      adata[:unit_types] = []
+      UNIT_TYPES.each do |mut, unit_type|
+      # %w{troop team crew cub webelos}.each do |unit_type|
+        if(member[mut] == "TRUE")
+          adata[:unit_types] << unit_type 
+        else
+          adata[:unit_types].delete(unit_type)
+        end
+      end
+      
       occu = (member["occupation"] or '').split(/;/)
       if(occu.length == 4)
       adata[:employment] = {
@@ -89,7 +133,7 @@ class CollectRecharterData
       lines.each do |line|
         bg_pos = line.to_s.split(/,\s*/)
 
-        if(occu.length == 3)
+        if(bg_pos.length == 3)
         adata[:background][:positions] << {
           name: bg_pos[0], 
           council: bg_pos[1], 
@@ -147,7 +191,7 @@ class CollectRecharterData
   def youth(member)
       ydata = {
         full_name: member["name"], 
-        dob: DateTime.strptime(member["bday"], "%d %b %y").strftime("%Y-%m-%d"), 
+        dob: DateTime.strptime(format_date(member["bday"]), "%d %b %Y").strftime("%Y-%m-%d"), 
         grade: member["grade"], 
         ethnicity: member["ethnicity"], 
         school: member["school"], 
@@ -156,8 +200,9 @@ class CollectRecharterData
       }
 
       ydata[:unit_types] = []
-      %w{troop team crew cub webelos}.each do |unit_type|
-        ydata[:unit_types] << unit_type if(member[unit_type] == "TRUE")
+      UNIT_TYPES.each do |mut, unit_type|
+      # %w{troop team crew cub webelos}.each do |unit_type|
+        ydata[:unit_types] << unit_type if(member[mut] == "TRUE")
       end
       
       ydata
@@ -193,6 +238,8 @@ class CollectRecharterData
     families = to_print.map{|x| x["family"]}.uniq
     # => ["Miles", "Conn", "Hanson", "Segales", "Van Horn", "Charlson", "North", "Durrant", "Szelestey", "Larios", "Roy", "Pickett", "Laloata"]
     # families = %w{Vezzani}
+    # families = %w{Hanson}
+    # families = %w{Charlson}
 
     to_print = {}
 

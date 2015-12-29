@@ -31,6 +31,7 @@ class PdfScoutYouthApplication < PdfScoutApplication
 
   def initialize(data, index, unit_type, unit_position_codes)
     super(data, unit_position_codes)
+    data[:adult] = data[:adults].first
     data[:youth] = data[:scouts][index]
     data[:youth][:unit_type] = unit_type
   end
@@ -69,6 +70,8 @@ class PdfScoutYouthApplication < PdfScoutApplication
       }
     else
       {
+        p5_boys_life_fee_dollar: '',
+        p5_boys_life_fee_cents: '', 
         p5_boys_life_subscription: 'No'
       }
     end
@@ -104,15 +107,15 @@ class PdfScoutYouthApplication < PdfScoutApplication
   
   def unit_type_value(unit_type)
     if(
-        unit_type == :tiger or 
-        unit_type == :cub or 
-        unit_type== :webelos
+        unit_type == 'tiger' or 
+        unit_type == 'cub' or 
+        unit_type == 'webelos'
         # data[:youth][:unit_types].include?(:tiger) or
         # data[:youth][:unit_types].include?(:cub) or
         # data[:youth][:unit_types].include?(:webelos)
       )
       {
-        p5_pack_type: unit_type, 
+        p5_pack_type: (unit_type.is_a?(Symbol)) ? unit_type : unit_type.to_s.to_sym, 
         p5_unit_type: :pack
       }
     else
@@ -157,26 +160,36 @@ class PdfScoutYouthApplication < PdfScoutApplication
                     [:employment, :phone]
                   end
 
-    phone_number = if(phone_label.is_a?(Array))
+    phone_number = if(phone_label.is_a?(Array) and data[person_label][phone_label[0]])
       parse_phone(data[person_label][phone_label[0]][phone_label[1]])
+      
     elsif(data[person_label].has_key?(phone_label))
       parse_phone(data[person_label][phone_label])
+
     elsif(data[:phone])
       parse_phone(data[:phone])
     end
 
-    if(type == :business)
-      {
-        "p5_#{person}_phone_#{type}_area_code".to_sym => clean(phone_number[:area_code]), 
-        "p5_#{person}_phone_#{type}_middle_three".to_sym => clean(phone_number[:prefix]), 
-        "p5_#{person}_phone_#{type}_last_four".to_sym => clean(phone_number[:suffix]), 
-        "p5_#{person}_phone_#{type}_extension".to_sym => clean(phone_number[:extension])
-      }
+    if !phone_number.nil?
+      if(type == :business)
+        {
+          "p5_#{person}_phone_#{type}_area_code".to_sym => clean(phone_number[:area_code]), 
+          "p5_#{person}_phone_#{type}_middle_three".to_sym => clean(phone_number[:prefix]), 
+          "p5_#{person}_phone_#{type}_last_four".to_sym => clean(phone_number[:suffix]), 
+          "p5_#{person}_phone_#{type}_extension".to_sym => clean(phone_number[:extension])
+        }
+      else
+        {
+          "p5_#{person}_phone_#{type}_area_code".to_sym => clean(phone_number[:area_code]), 
+          "p5_#{person}_phone_#{type}_middle_three".to_sym => clean(phone_number[:prefix]), 
+          "p5_#{person}_phone_#{type}_last_four".to_sym => clean(phone_number[:suffix])
+        }
+      end
     else
       {
-        "p5_#{person}_phone_#{type}_area_code".to_sym => clean(phone_number[:area_code]), 
-        "p5_#{person}_phone_#{type}_middle_three".to_sym => clean(phone_number[:prefix]), 
-        "p5_#{person}_phone_#{type}_last_four".to_sym => clean(phone_number[:suffix])
+        "p5_#{person}_phone_#{type}_area_code".to_sym => '', 
+        "p5_#{person}_phone_#{type}_middle_three".to_sym => '', 
+        "p5_#{person}_phone_#{type}_last_four".to_sym => ''
       }
     end
   end
@@ -209,7 +222,12 @@ class PdfScoutYouthApplication < PdfScoutApplication
   end
   
   def email
-    info = data[:adult][:email] or data[:adult][:employment][:email]
+    info = data[:adult][:email] or (data[:adult][:employment] and data[:adult][:employment][:email])
+    return {
+      p5_parent_email_user: '', 
+      p5_parent_email_domain: ''
+    } if info.nil?
+
     email_info = parse_email(info)
 
     {
@@ -241,10 +259,17 @@ class PdfScoutYouthApplication < PdfScoutApplication
   end
   
   def employment
-    {
-      p5_parent_occupation: clean(data[:adult][:employment][:occupation]), 
-      p5_parent_employer: clean(data[:adult][:employment][:employer])
-    }
+    if(data[:adult].has_key?(:employment))
+      {
+        p5_parent_occupation: clean(data[:adult][:employment][:occupation]), 
+        p5_parent_employer: clean(data[:adult][:employment][:employer])
+      }
+    else
+      {
+        p5_parent_occupation: '', 
+        p5_parent_employer: ''
+      }
+    end
   end
   
   def registration_fee

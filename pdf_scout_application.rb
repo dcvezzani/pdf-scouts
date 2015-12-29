@@ -16,8 +16,9 @@ class PdfScoutApplication
   attr_reader :pdftk
 
   HOME = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
-  YOUTH = '524-406A.youth.final.unc.pdf'
-  ADULT = '524-501.adult.final.unc.pdf'
+  YOUTH = '524-406A.youth.single-page.final.unc.pdf'
+  ADULT = '524-501.adult.single-page.final.unc.pdf'
+  DATA_FILE = 'data-all.yml'
 
   RE_ADDRESS = /^([^,]+), *([^,]+), ([A-Z]+) ([\d-]+)$/
   RE_FULL_NAME = /[[:space:],]/
@@ -33,41 +34,60 @@ class PdfScoutApplication
   def self.process
     home = '/Users/davidvezzani/Documents/journal/scm/pdf-scouts'
 
-    data = YAML.load_file("#{home}/data.yml")
-    upc = YAML.load_file("#{home}/unit_position_codes.yml")
+    data = YAML.load_file("#{HOME}/#{DATA_FILE}")
+    # debugger
+    upc = YAML.load_file("#{HOME}/unit_position_codes.yml")
 
-    load "#{home}/pdf_scout_application.rb"
-    load "#{home}/pdf_scout_youth_application.rb"
-    load "#{home}/pdf_scout_adult_application.rb"
+    load "#{HOME}/pdf_scout_application.rb"
+    load "#{HOME}/pdf_scout_youth_application.rb"
+    load "#{HOME}/pdf_scout_adult_application.rb"
 
     data[:families].keys.each do |family_name|
+      puts "processing #{family_name} members..."
+
       default_data = data.select{|k,v| [:unit_number, :council, :unit_types, :boys_life_subscription].include?(k)}
       fdata = default_data.merge(data[:families][family_name])
 
+      # only consider BL subscriptions for :troop
+      filtered = fdata.dup
+      [:boys_life_subscription].each do |key|
+        filtered.delete(key)
+      end
+
       family_unit_types = []
       fdata[:scouts].each.with_index do |sdata, i|
-        supported_units = (sdata[:unit_types] or []).concat(data[:unit_types])
-        family_unit_types = family_unit_types.concat(supported_units).uniq
 
+        supported_units = (sdata[:unit_types] or data[:unit_types])
+        # supported_units = supported_units.concat(data[:unit_types]) unless supported_units.include?(%w{cub webelos})
+        family_unit_types = family_unit_types.concat(supported_units).uniq
+        puts "processing #{sdata[:full_name]} (#{supported_units.inspect}..."
+
+        yboys_life_applied = false
         supported_units.each do |unit_type|
-          # only consider BL subscriptions for :troop
-          ydata = fdata.dup
-          if(unit_type != 'troop')
-            [:boys_life_subscription].each do |key|
-              ydata.delete(key)
-            end
-          end
+
+          ydata = if(%w{troop cub webelos}.include?(unit_type) and !yboys_life_applied)
+                    yboys_life_applied = true
+                    fdata
+                  else
+                    filtered
+                  end
 
           youth = PdfScoutYouthApplication.new(ydata, i, unit_type, upc)
           attrs = youth.prepare(unit_type)
-          youth.print(:youth, attrs, "#{home}/prints/youth.#{attrs[:file_label]}.unc.filled.pdf")
+          youth.print(:youth, attrs, "#{HOME}/prints/youth.#{attrs[:file_label]}.unc.filled.pdf")
         end
       end
 
-      family_unit_types.each do |unit_type|
-        adult = PdfScoutAdultApplication.new(fdata, unit_type, upc)
-        attrs = adult.prepare(unit_type)
-        adult.print(:adult, attrs, "#{home}/prints/adult.#{attrs[:file_label]}.unc.filled.pdf")
+      fdata[:adults].each.with_index do |adata, i|
+        supported_units = family_unit_types.concat((adata[:unit_types] or data[:unit_types])).uniq
+        puts "processing #{adata[:full_name]} (#{supported_units.inspect}..."
+
+        supported_units.each do |unit_type|
+          
+          adult = PdfScoutAdultApplication.new(filtered, i, unit_type, upc)
+          attrs = adult.prepare(unit_type)
+          adult.print(:adult, attrs, "#{HOME}/prints/adult.#{attrs[:file_label]}.unc.filled.pdf")
+        end
       end
     end
   end
@@ -94,6 +114,7 @@ class PdfScoutApplication
   
   def parse_address(line)
     md = line.to_s.match(RE_ADDRESS)
+    # debugger if md.nil?
 
     {
       street: md[1], 
@@ -105,22 +126,40 @@ class PdfScoutApplication
   
   def parse_name(line)
     md = line.split(RE_FULL_NAME)
+
+    middle = nil
+    suffix = nil
+    last = nil
+    if(md.length < 3)
+      last = md[1]
+    else
+      middle = md[1]
+
+      if(md.length > 3 and md.last and md.last.downcase.match(/^(jr|sr|[ivx]+)/))
+        last = md[-2]
+        suffix = md.last
+      else
+        last = md.last
+      end
+    end
+
     {
       first: md[0], 
-      middle: md[1], 
-      last: md[2], 
-      suffix: md[3]
+      middle: (middle or ""),
+      last: (last or ""),
+      suffix: (suffix or "")
     }
   end
   
   def parse_phone(line)
-    md = line.gsub(/[^\d]/, '').match(RE_PHONE)
+    if(md = line.gsub(/[^\d]/, '').match(RE_PHONE))
     {
       area_code: md[1], 
       prefix: md[2], 
       suffix: md[3], 
       extension: md[4]
     }
+    end
   end
 
 

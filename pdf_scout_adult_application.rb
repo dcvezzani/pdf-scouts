@@ -30,12 +30,15 @@ adult.print(:adult, attrs, "#{home}/adult.#{attrs[:file_label]}.unc.filled.pdf")
 
 class PdfScoutAdultApplication < PdfScoutApplication
 
-  def initialize(data, unit_type, unit_position_codes)
+  def initialize(data, index, unit_type, unit_position_codes)
     super(data, unit_position_codes)
+    data[:adult] = data[:adults][index]
+    data[:adult][:unit_type] = unit_type
   end
 
   def file_label(unit_type)
     # return file_label unless file_label.nil?
+    # debugger
     name_values = parse_name(data[:adult][:full_name])
     {file_label: "#{name_values[:last]} #{name_values[:first]} #{name_values[:middle]} #{name_values[:suffix]} #{unit_type}".strip.downcase.gsub(/\W+/, '-')}
   end
@@ -50,10 +53,17 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def employment
-    {
-      p5_occupation: clean(data[:adult][:employment][:occupation]), 
-      p5_employer: clean(data[:adult][:employment][:employer])
-    }
+    if(data[:adult].has_key?(:employment))
+      {
+        p5_occupation: clean(data[:adult][:employment][:occupation]), 
+        p5_employer: clean(data[:adult][:employment][:employer])
+      }
+    else
+      {
+        p5_occupation: '', 
+        p5_employer: ''
+      }
+    end
   end
   
   def mailing_address
@@ -85,11 +95,18 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def drivers_license
-    info = data[:adult][:drivers_license]
-    {
-      p5_drivers_license_number: clean(info[:id]), 
-      p5_dl_state: clean(info[:state])
-    }
+    if(data[:adult].has_key?(:drivers_license))
+      info = data[:adult][:drivers_license]
+      {
+        p5_drivers_license_number: clean(info[:id]), 
+        p5_dl_state: clean(info[:state])
+      }
+    else
+      {
+        p5_drivers_license_number: '',
+        p5_dl_state: ''
+      }
+    end
   end
   
   def registration_fee
@@ -117,6 +134,11 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def additional_info
+    return {} if(data[:adult][:background].nil? or 
+                 data[:adult][:background][:additional_information].nil? or
+                 data[:adult][:background][:additional_information].length == 0
+                )
+    
     a_info = {
       p5_info_alcohol_desc: data[:adult][:background][:additional_information][:alcohol_abuse], 
       p5_info_child_abuse_desc: data[:adult][:background][:additional_information][:child_abuse],
@@ -155,9 +177,15 @@ class PdfScoutAdultApplication < PdfScoutApplication
                      end
                    elsif(type == :cell)
                      parse_phone(data[:adult][:phone_cell])
-                   elsif(type == :business)
+                   elsif(type == :business and data[:adult].has_key?(:employment))
                      parse_phone(data[:adult][:employment][:phone])
                    end
+
+    return {
+        "p5_phone_#{type}_area_code".to_sym => '', 
+        "p5_phone_#{type}_prefix".to_sym => '', 
+        "p5_phone_#{type}_suffix".to_sym => ''
+    } if(phone_number.nil? or phone_number.to_s.length == 0)
 
     if(type == :business)
       {
@@ -229,16 +257,26 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def residence(line, index)
+    if(!line.nil?)
     address = parse_address(line)
-    
     {
       "p5_residence_#{index.to_s.rjust(2, '0')}_city".to_sym => clean(address[:city]), 
       "p5_residence_#{index.to_s.rjust(2, '0')}_state".to_sym => clean(address[:state])
     }
+    else
+    {
+      "p5_residence_#{index.to_s.rjust(2, '0')}_city".to_sym => '', 
+      "p5_residence_#{index.to_s.rjust(2, '0')}_state".to_sym => ''
+    }
+    end
   end
 
   def email
-    info = data[:adult][:email] or data[:adult][:employment][:email]
+    info = data[:adult][:email] or (data[:adult][:employment] and data[:adult][:employment][:email])
+    return {
+      p5_email_username: '', 
+      p5_email_domain: ''
+    } if info.nil?
 
     type = if(data[:adult][:email].nil? == false)
       :home
@@ -260,7 +298,7 @@ class PdfScoutAdultApplication < PdfScoutApplication
   def eagle_scout
     raw_date = data[:adult][:eagle_scout]
 
-    if(raw_date and raw_date.length > 0)
+    if(raw_date and raw_date.length > 0 and raw_date.match(/\d+ \w+ \d+/))
       date = parse_date(raw_date)
       
       {
@@ -270,11 +308,24 @@ class PdfScoutAdultApplication < PdfScoutApplication
         p5_eagle_scout_status: clean('yes')
       }
     else
-      {}
+      {
+        p5_eagle_earned_day: '', 
+        p5_eagle_earned_month: '', 
+        p5_eagle_earned_year: '', 
+        p5_eagle_scout_status: ''
+      }
     end
   end
 
   def business_address
+    return {
+      p5_business_address: '', 
+      p5_business_city: '', 
+      p5_business_state: '', 
+      p5_business_zip_code: '', 
+      p5_business_country: ''
+    } unless(data[:adult].has_key?(:employment))
+    
     address = parse_address(data[:adult][:employment][:address])
     {
       p5_business_address: clean(address[:street]), 
@@ -309,13 +360,12 @@ class PdfScoutAdultApplication < PdfScoutApplication
     # p5_eagle_scout_status: 'No', 
 
     attrs = {
-      p5_info_alcohol: 2,
-      p5_info_child_abuse: 2,
-      p5_info_conduct_or_behavior: 2,
-      p5_info_criminal_offense: 2,
-      p5_info_drivers_license: 2,
-      p5_info_suitability: 2,
-      p5_eagle_scout_status: 'No', 
+      # p5_info_alcohol: 2,
+      # p5_info_child_abuse: 2,
+      # p5_info_conduct_or_behavior: 'No',
+      # p5_info_criminal_offense: 2,
+      # p5_info_drivers_license: 2,
+      # p5_info_suitability: 2,
       p5_boys_life_subscription: false, 
       p4_date: todays_date.strftime("%Y-%m-%d"), 
       p4_request_free_copy: false,
@@ -330,7 +380,7 @@ class PdfScoutAdultApplication < PdfScoutApplication
       p5_unity_type: unit_type
     }).merge({
       p5_memberships: data[:adult][:background][:current_memberships], 
-      p5_youth_experience: data[:adult][:background][:youth_experience]
+      p5_youth_experience: data[:adult][:background][:youth_experience].to_s.ljust(88, ' ')
     }).merge(
       expiration_date(todays_date)
     ).merge(
