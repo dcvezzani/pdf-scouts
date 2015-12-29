@@ -43,6 +43,7 @@ class PdfScoutApplication
     load "#{HOME}/pdf_scout_adult_application.rb"
 
     data[:families].keys.each do |family_name|
+    # %w{North}.each do |family_name|
       puts "processing #{family_name} members..."
 
       default_data = data.select{|k,v| [:unit_number, :council, :unit_types, :boys_life_subscription].include?(k)}
@@ -72,21 +73,26 @@ class PdfScoutApplication
                     filtered
                   end
 
+          Thread.new{
           youth = PdfScoutYouthApplication.new(ydata, i, unit_type, upc)
           attrs = youth.prepare(unit_type)
           youth.print(:youth, attrs, "#{HOME}/prints/youth.#{attrs[:file_label]}.unc.filled.pdf")
+          }
         end
       end
 
       fdata[:adults].each.with_index do |adata, i|
         supported_units = family_unit_types.concat((adata[:unit_types] or data[:unit_types])).uniq
+        supported_units.map!{|x| (x == 'cub') ? 'pack' : x }
         puts "processing #{adata[:full_name]} (#{supported_units.inspect}..."
 
         supported_units.each do |unit_type|
           
+          Thread.new{
           adult = PdfScoutAdultApplication.new(filtered, i, unit_type, upc)
           attrs = adult.prepare(unit_type)
           adult.print(:adult, attrs, "#{HOME}/prints/adult.#{attrs[:file_label]}.unc.filled.pdf")
+          }
         end
       end
     end
@@ -127,15 +133,16 @@ class PdfScoutApplication
   def parse_name(line)
     md = line.split(RE_FULL_NAME)
 
-    middle = nil
-    suffix = nil
-    last = nil
+    middle = ''
+    suffix = ''
+    last = ''
     if(md.length < 3)
       last = md[1]
     else
       middle = md[1]
 
-      if(md.length > 3 and md.last and md.last.downcase.match(/^(jr|sr|[ivx]+)/))
+      if(md.length > 2 and md.last and md.last.downcase.match(/^(jr|sr|[ivx]+)/))
+        middle = '' if md.length == 3
         last = md[-2]
         suffix = md.last
       else
@@ -145,9 +152,9 @@ class PdfScoutApplication
 
     {
       first: md[0], 
-      middle: (middle or ""),
-      last: (last or ""),
-      suffix: (suffix or "")
+      middle: middle, 
+      last: last, 
+      suffix: suffix
     }
   end
   

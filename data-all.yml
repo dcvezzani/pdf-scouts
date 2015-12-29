@@ -75,9 +75,9 @@
         :references: []
         :additional_information: []
         :youth_experience: 
-  Hanson:
+  Barber:
     :address: 3217 Heather Glen Lane, Atwater, CA 95301
-    :phone: 209-617-6968
+    :phone: 209-356-1966
     :scouts:
     - :full_name: Hyrum Barber
       :dob: '2009-02-01'
@@ -88,6 +88,22 @@
       :previous_status: 
       :unit_types:
       - cub
+    :adults:
+    - :full_name: Ruth Barber
+      :relationship: parent
+      :email: govnor2u@aol.com
+      :phone_cell: ''
+      :dob: 4 Jul 1975
+      :ethnicity: wht_cauca
+      :gender: female
+      :eagle_scout: 
+      :boys_life_subscription: false
+      :unit_types:
+      - cub
+  Hanson:
+    :address: 3217 Heather Glen Lane, Atwater, CA 95301
+    :phone: 209-617-6968
+    :scouts: []
     :adults:
     - :full_name: Etta Hanson
       :relationship: grandmother

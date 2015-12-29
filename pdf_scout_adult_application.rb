@@ -117,8 +117,9 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def position_code_description
-    upc = data[:adult][:position][:code]
-    description = (data[:adult][:position][:description] and data[:adult][:position][:description].length > 0) ? data[:adult][:position][:description] : unit_position_codes[upc.to_sym]
+    upc = check(data, [:adult, :position, :code])
+    pcd = check(data, [:adult, :position, :description])
+    description = (pcd.length > 0) ? pcd : unit_position_codes[upc.to_sym]
     {
       p5_position_code: clean(upc), 
       p5_position_description: clean(description)
@@ -216,8 +217,12 @@ class PdfScoutAdultApplication < PdfScoutApplication
 
   def positions
     collection = {}
-    data[:adult][:background][:positions].each.with_index do |position_entry, i|
-      collection.merge!(position(position_entry, (i+1)))
+
+    adp = check(data, [:adult, :background, :positions])
+    if(adp.is_a?(Array))
+      data[:adult][:background][:positions].each.with_index do |position_entry, i|
+        collection.merge!(position(position_entry, (i+1)))
+      end
     end
     collection
   end
@@ -232,8 +237,12 @@ class PdfScoutAdultApplication < PdfScoutApplication
   
   def references
     collection = {}
-    data[:adult][:background][:references].each.with_index do |reference_entry, i|
-      collection.merge!(reference(reference_entry, (i+1)))
+
+    adr = check(data, [:adult, :background, :references])
+    if(adr.is_a?(Array))
+      data[:adult][:background][:references].each.with_index do |reference_entry, i|
+        collection.merge!(reference(reference_entry, (i+1)))
+      end
     end
     collection
   end
@@ -251,9 +260,15 @@ class PdfScoutAdultApplication < PdfScoutApplication
   end
   
   def residences
-    residence(data[:adult][:background][:previous_residences][0], 1).merge(
-      residence(data[:adult][:background][:previous_residences][1], 2)
-    )
+    res = {}
+    if(data[:adult][:background] and data[:adult][:background][:previous_residences] and
+        data[:adult][:background][:previous_residences].is_a?(Array))
+
+      (1..(data[:adult][:background][:previous_residences].length)).each do |idx|
+        res = res.merge(residence(data[:adult][:background][:previous_residences][(idx-1)], idx))
+      end
+    end
+    res
   end
   
   def residence(line, index)
@@ -335,6 +350,24 @@ class PdfScoutAdultApplication < PdfScoutApplication
       p5_business_country: clean('US')
     }
   end
+
+  def check(hash, keys, options={})
+      # p5_youth_experience: check(data[:adult, :background, :youth_experience].to_s.ljust(88, ' '))
+    valid = keys.inject(true){|a,b| (a and !hash[b].nil?)}
+    value = if(valid)
+      keys.inject(hash){|a,b| a[b]}
+    else
+      ''
+    end
+
+    if(options.keys.length > 0)
+      if(options[:ljust])
+        value = value.to_s.ljust(options[:ljust].to_i, ' ')
+      end
+    end
+
+    value
+  end
   
   def prepare(unit_type)
     todays_date = Time.now
@@ -379,8 +412,8 @@ class PdfScoutAdultApplication < PdfScoutApplication
       p5_unit_number: unit_no, 
       p5_unity_type: unit_type
     }).merge({
-      p5_memberships: data[:adult][:background][:current_memberships], 
-      p5_youth_experience: data[:adult][:background][:youth_experience].to_s.ljust(88, ' ')
+      p5_memberships: check(data, [:adult, :background, :current_memberships]), 
+      p5_youth_experience: check(data, [:adult, :background, :youth_experience], {ljust: 88})
     }).merge(
       expiration_date(todays_date)
     ).merge(
